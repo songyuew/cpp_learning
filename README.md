@@ -10,6 +10,10 @@
 - [Array](#Array)
 - [Vector](#Vector)
 - [Constant](#Constant)
+- [Struct](#Struct)
+- [Class](#Class)
+- [File IO](#File-IO)
+- [Display Manipulator](#Display-Manipulator)
 
 ## Preprocessor<a name="Preprocessor"></a>
 
@@ -99,6 +103,20 @@ cin >> score1 >> score2;
 
 If the user type `100 98` and hit `enter`, `score1` will be `100` and `score2` will be `98` (the keyboard activities will be fed into a buffer, and then extracted character by character).
 
+### Read line as string
+
+```
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string strA;
+    getline(cin,strA)
+}
+```
+
 ## Array<a name="Array"></a>
 
 - The size need to be specified for an array.
@@ -174,3 +192,248 @@ A constant is a variable which the value could not be modified once initialized.
 ```
 const int daysInYear = 365;
 ```
+
+## Struct<a name="Struct"></a>
+
+A struct is a collection of different variables, they can have the same or different types.
+
+```
+struct Account {
+    double balance;
+    string account_holder;
+    string account_number;
+}
+```
+
+In `C++`, a struct can contain not only member variables, but also member methods:
+
+```
+struct Account {
+    double balance;
+    string account_holder;
+    string account_number;
+    double interest_rate;
+
+    double getInterest() {
+        return balance * interest_rate;
+    }
+}
+```
+
+Additionally, you can use this to declare member method:
+
+To be written inside the struct:
+
+```
+double getInterest();
+```
+
+To be written outside the struct:
+
+```
+double Account::getInterest() {
+    return balance * interest_rate;
+}
+```
+
+`::` is the scope resolution operator.
+
+## Class 
+
+### Class declaration
+```
+class Point {
+    public:
+        double getX() { 
+            return x;
+        }
+        double getY() { 
+            return y;
+        }
+        void setCoord(double s, double t) {
+            x = s;
+            y = t;
+        }
+        double distance(Point & p);
+        void translate(Point & p);
+
+    private:
+        double x;
+        double y;
+}
+```
+
+Normally, member methods are made `public` while member variables are made `private` to avoid unexpected manipulation.
+
+### Use classes from separated file
+
+Classes are stored in `account.h` file.
+
+At the beginning of `main.cpp` file, add this line:
+
+```
+#include 'account.h'
+```
+
+## File IO<a name="FILE-IO"></a>
+
+`fstream` package need to be used.
+
+```
+#include <fstream>
+```
+
+### Write to file
+
+```
+ofstream fout; // create output stream
+fout.open("data1.txt");
+
+if(fout.fail()) {
+    // if output stream fails, fout.fail() will return true
+    cout << "Error in file opening" << endl;
+    exit(1);
+}
+```
+
+```
+string outputStr = "Hello World";
+fout << outputStr << endl;
+
+fout.close();
+```
+
+Append mode:
+
+```
+fout.open("data2.txt",ios::app);
+```
+
+Use string variable as parameter in `open()` method:
+
+```
+fout.open(filename.c_str())
+```
+
+That's because `open()` only accepts C-string, not `string` object.
+
+### Read from file
+
+```
+ifstream fin;
+fin.open("data3.txt");
+
+if(fin.fail()) {
+    cout << "Error in file opening!" << endl;
+    exit(1);
+}
+```
+
+```
+string x;
+while(getline(fin,str)) {
+    // keep reading from the file until EOF is reached
+    cout << x << endl;
+}
+```
+
+### Extraction from string
+
+The `sstream` library need to be used.
+
+```
+#include <sstream>
+```
+
+```
+string line = "apple orange banana";
+string word;
+istringstream line_in(line); // create string input stream
+
+while(line_in >> word) {
+    cout << word << endl;
+}
+```
+
+The output of this program will be:
+
+```
+apple
+orange
+banana
+```
+
+## Display Manipulator<a name="Display-Manipulator"></a>
+
+Display manipulators are used to set the format for the output in the screen. It is just for display purpose, the original data/variable will not be changed.
+
+They are under the `std` namespace.
+
+### `showpoint`, `fixed` and `scientific` manipulator
+
+```
+double e = 12.0
+cout << showpoint << e << endl
+```
+
+Output: `12.0000`
+
+```
+double f = 0.135;
+cout << fixed << f << endl;
+cout << scientific << f << endl;
+```
+
+Output:
+
+```
+0.135000
+1.350000e-01
+```
+
+Note: once the display manipulator is activated, all `float` and `double` nunbers will be formatted.
+
+To stop the effect:
+
+```
+cout.unsetf(ios_base::floatfield);
+```
+
+### `setprecision` manipulator
+
+Set decimal places to display.
+
+`iomanip` library need to be imported.
+
+```
+#include <iomanip>
+```
+
+```
+double b = 12.6587452;
+cout << fixed << setprecision(2);
+cout << b;
+```
+
+Note: `setprecision` need to be jointly used with `fixed` or `scientific`.
+
+### `setw` and `setfill` manipulator
+
+`iomanip` library need to be imported.
+
+```
+int x = 5;
+int a = 3;
+cout << setw(5) << x << setw(8) << a << endl;
+```
+
+Output:
+
+```
+    5       3
+```
+
+Explaination:
+
+This the width of `5` will be 5 spaces, with `5` aligned to the right (4 spaces padded before `5`)
+
