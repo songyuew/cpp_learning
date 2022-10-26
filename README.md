@@ -6,6 +6,7 @@
 - [Main Function](#Main-Function)
 - [Namespace](#Namespace)
 - [Print in Console](#Print-in-Console)
+- [Loop (Iteration)](#Loop)
 - [Accept Input](#Accept-Input)
 - [Array](#Array)
 - [Vector](#Vector)
@@ -80,6 +81,21 @@ cout << "Hello World";
 ```
 cout << "Hello World" << endl;
 ```
+
+## Loop (Iteration)<a name="Loop"></a>
+
+### Enhanced `for` loop
+
+Automatically loop over elements in an iterable object:
+
+```
+for (double &grade : gradeList) {
+    // code here
+    // ...
+}
+```
+
+Note: The current looping element can be passed both by reference or by value. If passed by reference, we can make modification to it. The type need to be specified.
 
 ## Accept Input<a name="Accept-Input"></a>
 
@@ -168,6 +184,12 @@ If we use `at()` method, there will be bound checking. If the index is out of bo
 grades.push_back("A");
 ```
 
+## Get vector size
+
+```
+grades.size();
+```
+
 ### 2-D vector
 
 Create 2-D vector
@@ -202,8 +224,10 @@ struct Account {
     double balance;
     string account_holder;
     string account_number;
-}
+};
 ```
+
+Note: `;` at the ending curly brace of struct declaration is required.
 
 In `C++`, a struct can contain not only member variables, but also member methods:
 
@@ -455,6 +479,97 @@ Output:
 
 ## Recursion<a name="recursion"></a>
 
-Recursion means a problem can be solved by dividing it to a smaller version of itself.
+Recursion means a problem can be solved by dividing it to a smaller version of itself. 
+
+Sometimes, recursion is easier for the developer to write and understand. However, it usually runs slower and use more memory than an equivalent iteration.
+
+If the chain of recursive calls is excessively long, `stack overflow error` may occer (computation is out of memory).
 
 ![Recursion Example](img/recursion_exp.png)
+
+Code:
+
+```
+int factorial(int num) {
+    if (num == 0) {
+        return 1; // base case
+    }
+    else {
+        return num * factorial(num - 1); // general case, reduce to n - 1
+    }
+}
+```
+
+Properties for a recursion:
+
+- Have one or more base case(s)
+- The general cases must be able to reduce to base case
+
+Conditions to avoid infinite recursion:
+
+- Recursion called are smaller than the previous one
+- There is one or more base case(s) without using recursive calls to terminate the recursion
+
+### Example: Greatest common divisor (Euclidean algorithm)
+
+Reference [Euclidean Algorithm](https://zh.wikipedia.org/zh-tw/%E8%BC%BE%E8%BD%89%E7%9B%B8%E9%99%A4%E6%B3%95)
+
+Code:
+
+```
+int gcd(int x, int y) {
+    if (y == 0) {
+        return x;
+    }
+
+    else {
+        return gcd(y, x%y);
+    }
+}
+```
+
+### Example: Fibonacci sequence
+
+![Fibonacci Sequence](./img/fibonacci_seq.png)
+
+Code:
+
+```
+int fib(int num) {
+    if (num < 2) {
+        return num; // base cases: 0 and 1
+    }
+    else {
+        return fib(num - 1) + fib(num - 2); // general case
+    }
+}
+```
+
+### Example: Palindrome
+
+Check whether a string is symmetric from the center.
+
+Code:
+
+```
+bool is_palin(string s) {
+    if (s.length() < 2) {
+        return true; // base case, when there is only one or no character in the string
+    }
+    else {
+        return (s[0] == s[s.length()-1]) && is_palin(s.substr(1,s.length()-2)); // check whether the first character equals to the last character. If not, directly return false. Otherwise, continue to work on the substring.
+    }
+}
+```
+
+### Example: Tower of Hanoi
+
+![Tower of Hanoi](./img/tower_of_hanoi.png)
+
+- Move the entire stack of circular disks to another rod. Two rods are empty at the beginning.
+- Only one disk may be moved at a time.
+- Removed disk must be placed on one of the rods.
+- No disk may be placed on top of a smaller disk.
+- Question: how many steps do we need if there are `n` disks on the original rod?
+
+
