@@ -424,16 +424,37 @@ Note: `setprecision` need to be jointly used with `fixed` or `scientific`.
 ```
 int x = 5;
 int a = 3;
+cout << setfill('*');
 cout << setw(5) << x << setw(8) << a << endl;
 ```
 
 Output:
 
 ```
-    5       3
+****5*******3
 ```
 
 Explaination:
 
-This the width of `5` will be 5 spaces, with `5` aligned to the right (4 spaces padded before `5`)
+This the width of `5` will be 5 spaces, with `5` aligned to the right (4 spaces padded before `5`). All unused spaces will be set to `*`.
 
+### `left` and `right` manipulator
+
+```
+int x = 5;
+cout << left;
+cout << setfill('-');
+cout << setw(5) << x << endl;
+```
+
+Output:
+
+```
+5----
+```
+
+## Recursion<a name="recursion"></a>
+
+Recursion means a problem can be solved by dividing it to a smaller version of itself.
+
+![Recursion Example](img/recursion_exp.png)
