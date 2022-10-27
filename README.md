@@ -572,4 +572,17 @@ bool is_palin(string s) {
 - No disk may be placed on top of a smaller disk.
 - Question: how many steps do we need if there are `n` disks on the original rod?
 
+Code:
 
+```
+void move(int n,char src,char des,char tmp) {
+    if (n == 1) {
+        cout << "Move disk from " << src << "to " << des << endl;
+    }
+    else {
+        move(n-1,src,tmp,des);
+        move(1,src,des,tmp);
+        move(n-1,tmp,des,src);
+    }
+}
+```
