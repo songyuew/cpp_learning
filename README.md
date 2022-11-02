@@ -15,6 +15,8 @@
 - [Class](#Class)
 - [File IO](#File-IO)
 - [Display Manipulator](#Display-Manipulator)
+- [Recursion](#recursion)
+- [Pointers, Dynamic Memory & Linked List](#basic-data-structure)
 
 ## Preprocessor<a name="Preprocessor"></a>
 
@@ -585,4 +587,65 @@ void move(int n,char src,char des,char tmp) {
         move(n-1,tmp,des,src);
     }
 }
+```
+
+## Pointers<a name="pointer"></a>
+
+### Get address
+
+The memory address of a variable can be accessed with the `&` sign:
+
+```
+int a = 1;
+cout << &a;
+```
+
+This is also the method of "pass by reference" in functions.
+
+### Declare and use a pointer
+
+In addition to print the memory address, we can store it in a variable, which is called a pointer:
+
+```
+int a = 1;
+int *addr_for_a;
+addr_for_a = &a;
+
+cout << addr_for_a;
+```
+
+Note: the `*` sign is used to declare a pointer. The type of the variable to "point to" must be specified. In this case, the pointer is for `int` only.
+
+### Dereference
+We can also get the value of the variable from address:
+
+```
+int a = 1;
+int *addr_for_a;
+addr_for_a = &a;
+
+cout << "Address: " << addr_for_a << endl;
+cout << "Value: " << *addr_for_a << endl;
+```
+
+The notation of `*<memory_addr>` is called dereference, getting the value from an address.
+
+### Arrow notation
+
+To chain the dereference notation with member methods/properties of a struct/class, we will need to use the bracket:
+
+```
+(*student_struct_addr).score = 100;
+```
+
+We can also use the arrow notation:
+
+```
+student_struct_addr -> score = 100;
+```
+
+### Initialize pointer to `NULL` address
+
+```
+Student *s = NULL;
 ```
