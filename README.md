@@ -16,7 +16,9 @@
 - [File IO](#File-IO)
 - [Display Manipulator](#Display-Manipulator)
 - [Recursion](#recursion)
-- [Pointers, Dynamic Memory & Linked List](#basic-data-structure)
+- [Pointers](#pointer)
+- [Dynamic Variable](#Dynamic-Variable)
+- [Linked List](#Linked-List)
 
 ## Preprocessor<a name="Preprocessor"></a>
 
@@ -648,4 +650,180 @@ student_struct_addr -> score = 100;
 
 ```
 Student *s = NULL;
+```
+
+## Dynamic Memory<a name="Dynamic-Variable"></a>
+
+Dynamic memory means the memory is allocated or reallocated during the runtime (unlike static variables, there memories are assigned during the compilation).
+
+### Use the `new` keyboard
+
+```
+int *a_addr;
+a_addr = new int; // set the pointer to the address of a new int variable
+*a_addr = 5;
+cout << *a_addr + 3 << endl; // 8
+```
+
+### Pass by reference (with pointers)
+
+```
+void swap(int *x, int *y) {
+    ...
+}
+
+int main() {
+    int a=2,b=5;
+    swap(&a,&b); // the & signs are required, because the pointer is expecting addresses
+}
+```
+
+### Arrays
+
+```
+int a[4] = {1,2,3,4};
+int *p = a; // as a is already an address, there is no need to use &
+
+cout << *p << *(p+1) << *(p+2) << *(p+3) << endl;
+// the array a will reserve four consecutive memory addresses starting from p, therefore we can just dereference each linked pointer to get the value.
+
+cout << p[0] << p[1] << p[2] << p[3] << endl;
+// this notation will have the same effect
+```
+
+### `nothrow` for dynamic array
+
+This method of declaring a dynamic array will throw an error if the memory space is not enough:
+
+```
+Student *S = new Student[1000];
+```
+
+However, we can use this instead:
+
+```
+Student *S = (nothrow) new Student[1000];
+// in case of insufficient space, all other pointers will point to NULL
+```
+
+### Life cycle of dynamic array
+
+1. Insert an element:
+
+```
+int size = 4;
+Product *temp; // create the pointer
+temp = new Product[size];
+
+for (int i=0;i<size;i++) { 
+    temp[i]=ProductList[i];
+}
+
+delete [] ProductList; // delete the memory spaces taken by the unused array
+```
+
+Note: remember the `[]` before the pointer name when deleting the pointer.
+
+2. Remove an element
+
+```
+// slotID is the index of the element to be deleted
+void delete_product(Product *ProductList,int slotID,int size) {
+    for(int i=slotID;i<size;i++) {
+        ProductList[i] = ProductList[i+1];
+    }
+}
+```
+
+## Linked List<a name="Linked-List"></a>
+
+Linked list allows insertion and removal of items at any point in the list in constant time (O(1)).
+
+Basic type:
+
+```
+struct Product {
+    string name;
+    double price;
+    Product *next; // point to the next item
+}
+```
+
+Each item will have a pointer which points to the next element.
+
+Head: the pointer variable that points to the first node(struct) in the list.
+
+Initially, the `head` is initialized to `NULL`.
+
+```
+Product *head = NULL;
+```
+
+### Insertion
+
+1. Create a new node
+2. New node's next is the originally first node.
+3. Change the `head` to the address of the new node.
+
+```
+Product * headInsert(Product *h, string n, double p) {
+    Product *pNode = new Product;
+    pNode -> name = n;
+    pNode -> price = p;
+    pNode -> next = h;
+    h = pNode;
+    return h;
+}
+```
+
+Parameters: `*h` is the original `head`, `n` and `p` are the properties to be set for the newly-added struct.
+
+The returned `h` is the new head(the address for the newly-added struct).
+
+### Searching
+
+1. Creat a pointer `current`(pointing to the current node which is being checked).
+2. Initialize `current` with `head`.
+3. Traverse the lined list by: `current = current -> next;`
+
+```
+void searchList(Product *head, string n) {
+    // declare the current pointer
+    Product *current;
+    current = head;
+    while(current != NULL) {
+        if(current -> name == n)
+            cout << current -> price << endl;
+            
+        // move to the next struct
+        current = current -> next;
+    }
+}
+```
+
+Parameters: `*head` is the head of the linked list, `n` is the target string.
+
+### Deletion
+
+1. Create 2 pointers: `current` and `previous` (for singly linked list).
+2. Search for the node to delete, and update the pointers: `previous -> next = current -> next;`(connect the previous node direcly to the subsequent node).
+3. Delete the target node to free up memory space: `delete current`.
+
+```
+Product *current, *previous;
+// initialize the previous to NULL, because the current should be the head
+previous = NULL;
+current = head;
+string target = "xxxxx";
+
+while(current != NULL) {
+    // search first
+    if(current -> name == target) {
+        previous -> next = current -> next;
+        delete current;
+        break;
+    }
+    previous = current;
+    current = current -> next;
+}
 ```
