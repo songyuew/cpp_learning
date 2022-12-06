@@ -434,6 +434,8 @@ while(getline(fin,str)) {
     // keep reading from the file until EOF is reached
     cout << x << endl;
 }
+
+fin.close()
 ```
 
 ### Extraction from string
