@@ -8,6 +8,7 @@
 - [Print in Console](#Print-in-Console)
 - [Loop (Iteration)](#Loop)
 - [Accept Input](#Accept-Input)
+- [String](#String)
 - [Array](#Array)
 - [Vector](#Vector)
 - [Constant](#Constant)
@@ -133,9 +134,81 @@ using namespace std;
 
 int main() {
     string strA;
-    getline(cin,strA)
+    getline(cin,strA);
 }
 ```
+
+### Command line argument
+
+```
+int main(int argc, char *argv[]) {
+    ...
+}
+```
+
+`argc`: length of command line arguments input by the user
+`argv`: an array of characters that stores all command line arguments
+
+## String<a name="String"></a>
+
+### C++ string
+
+```
+#include <string>
+```
+
+```
+int len = str.length();
+```
+
+Get the length of a string.
+
+```
+string sub = str.substr(startIndex, n);
+```
+
+Get substring.
+
+```
+str.erase(startIndex, n);
+```
+
+Delete a substring.
+
+```
+int loc = str.find(substr);
+int loc2 = str.find(substr,loc+1);
+```
+
+Get the position of first occurrence of a certain substring.
+
+```
+int listLoc = str.rfind(substr);
+```
+
+Reverse find, get the last occurrence of a substring.
+
+```
+str.insert(loc, "hello");
+```
+
+Insert a string at the specified location.
+
+```
+str.replace(startIndex, n, "hello");
+```
+
+Replace a substring.
+
+
+
+### C string
+
+```
+#include <string.h>
+```
+
+![cstring](./img/cstring.png)
 
 ## Array<a name="Array"></a>
 
