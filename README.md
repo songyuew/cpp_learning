@@ -157,50 +157,48 @@ int main(int argc, char *argv[]) {
 #include <string>
 ```
 
-```
-int len = str.length();
-```
-
 Get the length of a string.
 
 ```
-string sub = str.substr(startIndex, n);
+int len = str.length();
 ```
 
 Get substring.
 
 ```
-str.erase(startIndex, n);
+string sub = str.substr(startIndex, n);
 ```
 
 Delete a substring.
+
+```
+str.erase(startIndex, n);
+```
+
+Get the position of first occurrence of a certain substring.
 
 ```
 int loc = str.find(substr);
 int loc2 = str.find(substr,loc+1);
 ```
 
-Get the position of first occurrence of a certain substring.
+Reverse find, get the last occurrence of a substring.
 
 ```
 int listLoc = str.rfind(substr);
 ```
 
-Reverse find, get the last occurrence of a substring.
+Insert a string at the specified location.
 
 ```
 str.insert(loc, "hello");
 ```
 
-Insert a string at the specified location.
+Replace a substring.
 
 ```
 str.replace(startIndex, n, "hello");
 ```
-
-Replace a substring.
-
-
 
 ### C string
 
