@@ -20,6 +20,8 @@
 - [Pointers](#pointer)
 - [Dynamic Variable](#Dynamic-Variable)
 - [Linked List](#Linked-List)
+- [Map (Binary Search Tree)](#Map)
+- [STL Containers Time Complexity](#STL_containers)
 
 ## Preprocessor<a name="Preprocessor"></a>
 
@@ -901,3 +903,65 @@ while(current != NULL) {
     current = current -> next;
 }
 ```
+
+## Map (Binary Search Tree)<a name="Map"></a>
+
+![map](./img/map.png)
+
+Balanced binary search tree:
+- Each node in the tree has at most two child nodes.
+- Keys on the left sub-tree must be smaller than the keys on the right sub-tree.
+- The tree is kept balance to avoid a tall tree with nodes skewed to one side (which affects searching performance).
+
+```
+#include <map>
+map<Record, int> book;
+book[r] = r.number;
+```
+## STL Containers Time Complexity<a name="STL_containers"></a>
+
+![](./img/stl_containers_time_complexity.png)
+
+## STL Iterator<a name="STL_iterators"></a>
+
+An iterator is a class defined in STL for indexing items in a container.
+
+Declare an iterator
+
+```
+vector<string>::iterator its;
+```
+
+Note: an iterator can only be used for the specified container and data type in the container.
+
+Make the iterator point to the first element:
+
+```
+vector<int>::iterator itrOfV = v.begin();
+```
+
+Move the iterator by one position:
+
+```
+itrOfV++;
+```
+
+For-loop for iterator:
+
+```
+for (itr2 = v.begin(); itr2 != v.end(); itr2++)
+```
+
+Iterator for map:
+
+```
+// get key
+(*itr).first
+// get value
+(*itr).second
+```
+
+Difference between iterator and pointer:
+
+- Pointer stores the `memory address` of a variable, while iterator is a `class` storing the informatino for that variable (detail is not disclosed to programmers).
+- `++` operator will increase the `memory address` of a pointer by `1`, but move to the next element in a container for iterator.
