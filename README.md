@@ -435,7 +435,7 @@ while(getline(fin,str)) {
     cout << x << endl;
 }
 
-fin.close()
+fin.close();
 ```
 
 ### Extraction from string
@@ -734,6 +734,7 @@ Dynamic memory means the memory is allocated or reallocated during the runtime (
 ```
 int *a_addr;
 a_addr = new int; // set the pointer to the address of a new int variable
+cout << *a_addr << endl; // by default, the value is initialized to 0
 *a_addr = 5;
 cout << *a_addr + 3 << endl; // 8
 ```
