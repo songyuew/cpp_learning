@@ -1,5 +1,7 @@
 # C++ Notebook
 
+Acknowledgement: some images/screenshots are clipped from COMP2113 checkpoint slides, The University of Hong Kong.
+
 ## Contents
 
 - [Preprocessor](#Preprocessor)
